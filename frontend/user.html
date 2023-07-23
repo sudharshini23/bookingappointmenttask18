@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Appointment</title>
+</head>
+<body>
+    <h1>BOOKING APPOINTMENT APP</h1>
+    <form action="#" class="user-form" method="POST" onsubmit="userDetails(event)">
+        <div class="form-control">
+            <label for="userName">UserName</label>
+            <input type="text" name="userName" required id="userName">
+        </div>
+        <div class="form-control">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="number" name="phoneNumber" required id="phoneNumber">
+        </div>
+        <div>
+            <label for="email">Email ID</label>
+            <input type="text" name="email" required id="email">
+        </div>
+        <button class="btn" type="submit">Submit</button>
+    </form>
+
+    <ul id='listOfUsers'></ul>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+
+    <script>
+        function userDetails(event) {
+            event.preventDefault();
+            const userName = event.target.userName.value; // this obj details is used in controllers post request
+            const phoneNumber = event.target.phoneNumber.value;
+            const email = event.target.email.value;
+            const obj = {
+                userName,
+                phoneNumber,
+                email
+            };
+            axios.post("http://localhost:3000/user/add-user", obj)
+            .then((response) => {
+                // console.log(response.data);
+                // console.log(obj);
+                // console.log(response);
+                displayData(response.data.users)
+            })
+            .catch((err) => {
+                document.body.innerHTML = document.body.innerHTML + "<h4> Something went wrong </h4>"
+                console.log(err)
+            })
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            axios.get("http://localhost:3000/user/get-users")
+            .then((response) => {
+                for(var i = 0; i < response.data.users.length; i++) {
+                    displayData(response.data.users[i]);
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        })
+
+        function displayData(obj) {
+            // console.log(obj);
+            const parentItems = document.getElementById('listOfUsers')
+            const childItems = document.createElement('li')
+            childItems.textContent = obj.userName + ' - ' + obj.phoneNumber + ' - ' + obj.email;
+            const delBtn = document.createElement('input');
+            delBtn.type = 'button';
+            delBtn.value = 'Delete';
+            delBtn.onclick = () => {
+                parentItems.removeChild(childItems);
+                // connect this to db and delete on that?
+                axios.delete(`http://localhost:3000/user/delete-user/${obj.id}`);
+                
+            }
+            childItems.appendChild(delBtn)
+            parentItems.appendChild(childItems)
+        }
+    </script>
+</body>
+</html>

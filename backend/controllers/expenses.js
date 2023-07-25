@@ -44,16 +44,16 @@ exports.deleteExpenseDetails = (req,res,next) => {
 }
 
 // METHOD 2: USING GET AND DELETE
-// exports.editGetExpenseDetails = (req,res,next) => {
-//     const expenseId = req.params.id;
-//     Expense.findByPk(expenseId)
-//     .then(expense => {
-//         res.status(200).json({expenses: expense});
-//     })
-//     .catch(err => {
-//         res.status(500).json({error: err})
-//     })
-// }
+exports.editGetExpenseDetails = (req,res,next) => {
+    const expenseId = req.params.id;
+    Expense.findByPk(expenseId)
+    .then(expense => {
+        res.status(200).json({expenses: expense});
+    })
+    .catch(err => {
+        res.status(500).json({error: err})
+    })
+}
 
 
 // METHOD 1 OF EDIT: USING PUT: NOT WORKING: --------------------------------------------------
@@ -83,40 +83,40 @@ exports.deleteExpenseDetails = (req,res,next) => {
 
 // --- BELOW CODE WAS NOT WORKING! ----------
 
-exports.editExpenseDetails = (req,res,next) => {
-    const editMode = req.query.edit;
-    if(!editMode) {
-        return res.redirect('/expenses/get-expenses');
-    }
-    const expenseId = req.params.id;
-    Expense.findByPk(expenseId)
-    .then(expenses => {
-        if(!expenses) {
-            return res.status(500).json({error: 'No product found'});
-        }
-        res.status(200).json({expenses: expenses})
-    })
-    .catch(err => {
-        res.status(500).json({error: err});
-    })
-}
+// exports.editExpenseDetails = (req,res,next) => {
+//     const editMode = req.query.edit;
+//     if(!editMode) {
+//         return res.redirect('/expenses/get-expenses');
+//     }
+//     const expenseId = req.params.id;
+//     Expense.findByPk(expenseId)
+//     .then(expenses => {
+//         if(!expenses) {
+//             return res.status(500).json({error: 'No product found'});
+//         }
+//         res.status(200).json({expenses: expenses})
+//     })
+//     .catch(err => {
+//         res.status(500).json({error: err});
+//     })
+// }
 
-exports.submitEditExpenseDetails = (req,res,next) => {
-    const expenseId = req.params.id;
-    const updatedAmt = req.body.expenseAmt;
-    const updatedDesc = req.body.description;
-    const updatedCategory = req.body.category;
-    Expense.findByPk(expenseId)
-    .then(expense => {
-        expense.expenseAmount = updatedAmt;
-        expense.description = updatedDesc;
-        expense.category = updatedCategory;
-        return expense.save();
-    })
-    .then(result => {
-        res.status(200).json({expenses: result})
-    })
-    .catch(err => {
-        res.status(500).json({error: err});
-    })
-}
+// exports.submitEditExpenseDetails = (req,res,next) => {
+//     const expenseId = req.params.id;
+//     const updatedAmt = req.body.expenseAmt;
+//     const updatedDesc = req.body.description;
+//     const updatedCategory = req.body.category;
+//     Expense.findByPk(expenseId)
+//     .then(expense => {
+//         expense.expenseAmount = updatedAmt;
+//         expense.description = updatedDesc;
+//         expense.category = updatedCategory;
+//         return expense.save();
+//     })
+//     .then(result => {
+//         res.status(200).json({expenses: result})
+//     })
+//     .catch(err => {
+//         res.status(500).json({error: err});
+//     })
+// }

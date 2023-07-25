@@ -86,53 +86,53 @@
             editBtn.onclick = () => {
 
                 // METHOD USING GET AND DELETE
-                // parentDets.removeChild(childDets)
-                // axios.get(`http://localhost:3000/expenses/get-expenses/${obj.id}`)
-                // .then((response) => {
-                //     const amount = response.data.expenses.expenseAmount;
-                //     const desc = response.data.expenses.description;
-                //     const category = response.data.expenses.category;
+                parentDets.removeChild(childDets)
+                axios.get(`http://localhost:3000/expenses/get-expenses/${obj.id}`)
+                .then((response) => {
+                    const amount = response.data.expenses.expenseAmount;
+                    const desc = response.data.expenses.description;
+                    const category = response.data.expenses.category;
 
-                //     document.getElementById('expenseAmt').value = amount
-                //     document.getElementById('description').value = desc;
-                //     document.getElementById('category').value = category;
+                    document.getElementById('expenseAmt').value = amount
+                    document.getElementById('description').value = desc;
+                    document.getElementById('category').value = category;
 
-                //     axios.delete(`http://localhost:3000/expenses/delete-expenses/${obj.id}`)
-                //     .then(response => {
-                //         // displayData(response.data);
-                //         displayExpenses(response);
-                //         console.log(response);
-                //     })
-                //     .catch(err => {
-                //         console.log(err);
-                //     })
-                //     // parentDets.removeChild(childDets)
-                // })
-                // .catch(err => {
-                //     console.log(err);
-                // })
+                    axios.delete(`http://localhost:3000/expenses/delete-expenses/${obj.id}`)
+                    .then(response => {
+                        // displayData(response.data);
+                        displayExpenses(response);
+                        console.log(response);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+                    // parentDets.removeChild(childDets)
+                })
+                .catch(err => {
+                    console.log(err);
+                })
 
                 // UNCOMMENT FOR USING PUT:
-                axios.put(`http://localhost:3000/expenses/edit-expenses/${obj.id}`)
-                .then((response) => {
-                    // let obj = {
-                    //     expenseAmount: expenseAmount,
-                    //     description: description,
-                    //     category: category,
-                    //     id: obj.id
-                    // }
-                    console.log(response);
-                    // document.getElementById('listOfExpenses').removeChild(document.getElementById(obj.id))
-                    displayExpenses(response.data.expenses);
-                })
-                .catch((err) => {
-                    document.body.innerHTML = document.body.innerHTML + "<h4> Something went wrong </h4>"
-                    console.log(err)
-                })
-                parentDets.removeChild(childDets)
-                document.getElementById('expenseAmt').value = obj.expenseAmount;
-                document.getElementById('description').value = obj.description;
-                document.getElementById('category').value = obj.category;
+                // axios.put(`http://localhost:3000/expenses/edit-expenses/${obj.id}`)
+                // .then((response) => {
+                //     // let obj = {
+                //     //     expenseAmount: expenseAmount,
+                //     //     description: description,
+                //     //     category: category,
+                //     //     id: obj.id
+                //     // }
+                //     console.log(response);
+                //     // document.getElementById('listOfExpenses').removeChild(document.getElementById(obj.id))
+                //     displayExpenses(response.data.expenses);
+                // })
+                // .catch((err) => {
+                //     document.body.innerHTML = document.body.innerHTML + "<h4> Something went wrong </h4>"
+                //     console.log(err)
+                // })
+                // parentDets.removeChild(childDets)
+                // document.getElementById('expenseAmt').value = obj.expenseAmount;
+                // document.getElementById('description').value = obj.description;
+                // document.getElementById('category').value = obj.category;
             }
             childDets.appendChild(delBtn);
             childDets.appendChild(editBtn);

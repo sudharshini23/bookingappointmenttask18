@@ -43,7 +43,8 @@
                 // console.log(response.data);
                 // console.log(obj);
                 // console.log(response);
-                displayData(response.data.users)
+                // displayData(response.data.newUserDetail);
+                displayData(response.data.users);
             })
             .catch((err) => {
                 document.body.innerHTML = document.body.innerHTML + "<h4> Something went wrong </h4>"
@@ -74,8 +75,14 @@
             delBtn.onclick = () => {
                 parentItems.removeChild(childItems);
                 // connect this to db and delete on that?
-                axios.delete(`http://localhost:3000/user/delete-user/${obj.id}`);
-                
+                axios.delete(`http://localhost:3000/user/delete-user/${obj.id}`)
+                .then(response => {
+                    // displayData(response.data);
+                    console.log(response);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
             }
             childItems.appendChild(delBtn)
             parentItems.appendChild(childItems)
